@@ -1,43 +1,42 @@
-export interface SearchResults {
-  results: Result[];
-  total_results: number;
-  last_visible_page: number;
-  parse_status_code: number;
+export interface WalmartProductResult {
+  result: ProductContent[];
+  job: JobDetails;
+}
+
+export interface ProductContent {
+  content: Product;
   created_at: string;
   updated_at: string;
   page: number;
   url: string;
   job_id: string;
   status_code: number;
-  parse_type: string;
+  parser_type: string;
 }
 
-export interface Result {
-  content: Content;
-}
-
-export interface Content {
+export interface Product {
   url: string;
-  organic: Organic[];
-  total_results: number;
-  last_visible_page: number;
-  parse_status_code: number;
-}
-
-export interface Organic {
-  url: string;
-  image: string;
-  price: Price;
+  meta: Meta;
+  price: number;
   title: string;
+  images: string[];
   rating: Rating;
   seller: Seller;
-  product_id: string;
-  badge?: Variant[];
+  currency: string;
+  warranty: string;
+  _warnings: string[];
+  variations: Variation[];
+  breadcrumbs: string[];
+  description: string;
+  out_of_stock: boolean;
+  specifications: Specification[];
+  parse_status_code: number;
+  price_strikethrough?: number;
 }
 
-export interface Price {
-  price: number;
-  currency: string;
+export interface Meta {
+  sku: string;
+  gtin: string;
 }
 
 export interface Rating {
@@ -46,30 +45,33 @@ export interface Rating {
 }
 
 export interface Seller {
-  name: string;
-}
-
-export interface Variant {
+  id: string;
   url: string;
-  title: string;
+  name: string;
+  catelog_id: string;
+  official_name: string;
+}
+
+export interface Variation {
+  state: string;
   product_id: string;
+  selected_options: SelectedOption[];
 }
 
-export interface Context {
+export interface SelectedOption {
   key: string;
-  value: any;
+  value: string;
 }
 
-export interface Link {
-  retl: string;
-  href: string;
-  method: string;
+export interface Specification {
+  key: string;
+  value: string;
 }
 
-export interface Job {
+export interface JobDetails {
   callback_url: string;
   client_id: number;
-  context: Context[];
+  context: JobContext[];
   created_at: string;
   domain: string;
   geo_location: null | string;
@@ -97,4 +99,15 @@ export interface Job {
   statuses: any[];
   client_notes: null | string;
   _links: Link[];
+}
+
+export interface JobContext {
+  key: string;
+  value: string;
+}
+
+export interface Link {
+  rel: string;
+  href: string;
+  method: string;
 }

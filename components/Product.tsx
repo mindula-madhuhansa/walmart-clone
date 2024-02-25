@@ -33,7 +33,7 @@ function Product({ product }: { product: Organic }) {
 
       {product.rating && (
         <p className="text-yellow-500 text-sm">
-          {product.rating.rating}★
+          {product.rating.rating} ★
           <span className="text-gray-400 ml-2">({product.rating.count})</span>
         </p>
       )}
